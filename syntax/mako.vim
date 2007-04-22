@@ -3,6 +3,7 @@
 " Maintainer:   Armin Ronacher <armin.ronacher@active-4.com>
 " URL:          http://lucumr.pocoo.org/
 " Last Change:  2007 April 8
+" Version:	0.6
 "
 " Known Limitations
 "   the <%text> block does not have correct attributes
@@ -44,8 +45,13 @@ syn region makoDocComment matchgroup=makoDelim start="<%doc>" end="</%doc>" keep
 " Literal Blocks
 syn region makoText matchgroup=makoDelim start="<%text[^>]*>" end="</%text>"
 
+" Attribute Sublexing
+syn match makoAttributeKey containedin=makoTag contained "[a-zA-Z_][a-zA-Z0-9_]*="
+syn region makoAttributeValue containedin=makoTag contained start=/"/ skip=/\\"/ end=/"/
+syn region makoAttributeValue containedin=MakoTag contained start=/'/ skip=/\\'/ end=/'/
+
 " Tags
-syn region makoTag matchgroup=makoDelim start="<%\(def\|call\|page\|include\|namespace\|inherit\)\>" end="/\?>" contains=@pythonTop
+syn region makoTag matchgroup=makoDelim start="<%\(def\|call\|page\|include\|namespace\|inherit\)\>" end="/\?>"
 syn match makoDelim "</%\(def\|call\)>"
 
 " Newline Escapes
@@ -63,6 +69,8 @@ if version >= 508 || !exists("did_mako_syn_inits")
   HiLink makoDocComment makoComment
   HiLink makoDefEnd makoDelim
 
+  HiLink makoAttributeKey Type
+  HiLink makoAttributeValue String
   HiLink makoText Normal
   HiLink makoDelim Preproc
   HiLink makoEnd Keyword
