@@ -2,8 +2,11 @@
 " Language:     Mako
 " Maintainer:   Armin Ronacher <armin.ronacher@active-4.com>
 " URL:          http://lucumr.pocoo.org/
-" Last Change:  2007 April 8
-" Version:	0.6
+" Last Change:  2008 September 12
+" Version:	0.6.1
+"
+" Thanks to Brine Rue <brian@lolapps.com> who noticed a bug in the
+" delimiter handling.
 "
 " Known Limitations
 "   the <%text> block does not have correct attributes
@@ -52,7 +55,7 @@ syn region makoAttributeValue containedin=MakoTag contained start=/'/ skip=/\\'/
 
 " Tags
 syn region makoTag matchgroup=makoDelim start="<%\(def\|call\|page\|include\|namespace\|inherit\)\>" end="/\?>"
-syn match makoDelim "</%\(def\|call\)>"
+syn match makoDelim "</%\(def\|call\|namespace\)>"
 
 " Newline Escapes
 syn match makoEscape /\\$/
